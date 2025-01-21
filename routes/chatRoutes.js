@@ -41,20 +41,21 @@ router.post("/chat", async (req, res) => {
 router.get("/chats/:userId", async (req, res) => {
   const { userId } = req.params;
 
-  try {
-    // Find the chat history for the user
-    const chat = await Chat.findOne({ userId });
+try {
+  // Find the chat history for the user
+  const chat = await Chat.findOne({ userId });
 
-    // If no chats exist for the user, return a 404 error
-    if (!chat) {
-      return res.status(404).json({ message: "No chats found for this user" });
-    }
-
-    res.status(200).json(chat);
-  } catch (error) {
-    console.error("Error fetching chats:", error);
-    res.status(500).json({ message: "Server error", error: error.message });
+  // If no chats exist for the user, return an empty array
+  if (!chat) {
+    return res.status(200).json({ chats: [] }); // Return empty array instead of 404 error
   }
+
+  res.status(200).json(chat);
+} catch (error) {
+  console.error("Error fetching chats:", error);
+  res.status(500).json({ message: "Server error", error: error.message });
+}
+
 });
 
 // Route to delete a specific chat by ID
