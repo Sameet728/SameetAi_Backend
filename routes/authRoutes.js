@@ -28,7 +28,7 @@ router.post('/register', async (req, res) => {
             maxAge: 24*60 * 60 * 1000, // 1 hour
         });
 
-        res.status(201).json({ message: 'User registered successfully' });
+        res.status(201).json({ message: 'User registered successfully',user });
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
     }
@@ -52,7 +52,7 @@ router.post('/login', async (req, res) => {
                 maxAge:24* 60 * 60 * 1000, // 1 hour
             });
 
-            res.status(200).json({ message: 'Login successful' });
+            res.status(200).json({ message: 'Login successful',user});
         } else {
             res.status(401).json({ message: 'Invalid credentials' });
         }
